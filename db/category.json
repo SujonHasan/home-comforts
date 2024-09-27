@@ -1,0 +1,32 @@
+[
+  {
+    "name": "bed",
+    "photo": "https://i.ibb.co/3WNvbyH/category-1.jpg",
+    "position": 1
+  },
+  {
+    "name": "mattress",
+    "photo": "https://i.ibb.co/vLQsgDx/category-2.jpg",
+    "position": 2
+  },
+  {
+    "name": "outdoor",
+    "photo": "https://i.ibb.co/3FD8QTF/category-3.jpg",
+    "position": 3
+  },
+  {
+    "name": "sofa",
+    "photo": "https://i.ibb.co/CzzJY5g/category-4.jpg",
+    "position": 4
+  },
+  {
+    "name": "livingroom",
+    "photo": "https://i.ibb.co/QfQW6hy/category-5.jpg",
+    "position": 5
+  },
+  {
+    "name": "kitchen",
+    "photo": "https://i.ibb.co/nkNpsB8/category-6.jpg",
+    "position": 6
+  }
+]
