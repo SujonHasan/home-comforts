@@ -1,5 +1,5 @@
 import Invoice from "@/components/pdf/Invoice";
-import { renderToFile } from '@react-pdf/renderer';
+import { renderToStream } from '@react-pdf/renderer';
 import fs from "fs";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
@@ -16,8 +16,22 @@ export const POST = async (req, res) => {
     try {
 
       // Generate PDF
-      const pdfPath = path.join(process.cwd(), 'public', `invoice-${invoiceData.user.id}.pdf`);
-      await renderToFile(<Invoice invoiceData={invoiceData} />, pdfPath);
+      // const pdfPath = path.join(process.cwd(), 'public', `invoice-${invoiceData.user.id}.pdf`);
+      // await renderToFile(<Invoice invoiceData={invoiceData} />, pdfPath);
+      const pdfStream = await renderToStream(<Invoice invoiceData={invoiceData} />);
+
+      console.log("pdf stream ==== ", pdfStream);
+      
+      const chunks = [];
+
+      for await (const chunk of pdfStream) {
+        chunks.push(chunk);
+      }
+
+      const pdfBuffer = Buffer.concat(chunks);
+
+      console.log("pdf Buffer ===============  ", pdfBuffer);
+      
 
       // Send Email
       let transporter = nodemailer.createTransport({
@@ -36,7 +50,7 @@ export const POST = async (req, res) => {
         attachments: [
           {
             filename: `invoice-${invoiceData.user.id}.pdf`,
-            path: pdfPath,
+            path: pdfBuffer,
             contentType: "application/pdf",
           },
         ],
